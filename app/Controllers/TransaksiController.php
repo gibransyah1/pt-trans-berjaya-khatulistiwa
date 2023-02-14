@@ -30,10 +30,12 @@ class TransaksiController extends BaseController
         if (!$this->session->get('login')) {
             return redirect()->to('/users/login');
         }
-
+        $currentPage = $this->request->getVar('page_pinjam') ? $this->request->getVar('page_pinjam') : 1;
         $data = [
             'judul' => 'List Mobil Sedang dipinjam',
-            'data' => $this->transaksi->join('mobil', 'transaksi.mobil_id = mobil.mobil_id')->join('supir', 'transaksi.supir_id = supir.supir_id')->where('total =', 0)->orderBy('tgl_keluar', 'DESC')->orderBy('jam_keluar', 'DESC')->findAll()
+            'data' => $this->transaksi->join('mobil', 'transaksi.mobil_id = mobil.mobil_id')->join('supir', 'transaksi.supir_id = supir.supir_id')->where('total =', 0)->orderBy('tgl_keluar', 'DESC')->orderBy('jam_keluar', 'DESC')->paginate(2, 'pinjam'),
+            'pager' => $this->transaksi->pager,
+            'currentPage' => $currentPage
         ];
 
         return view('transaksi/index', $data);
@@ -44,10 +46,12 @@ class TransaksiController extends BaseController
         if (!$this->session->get('login')) {
             return redirect()->to('/users/login');
         }
-
+        $currentPage = $this->request->getVar('page_kembali') ? $this->request->getVar('page_kembali') : 1;
         $data = [
             'judul' => 'List Mobil Sudah dikembalikan',
-            'data' => $this->transaksi->join('mobil', 'transaksi.mobil_id = mobil.mobil_id')->join('supir', 'transaksi.supir_id = supir.supir_id')->where('total !=', 0)->orderBy('tgl_masuk', 'DESC')->orderBy('jam_masuk', 'DESC')->findAll()
+            'data' => $this->transaksi->join('mobil', 'transaksi.mobil_id = mobil.mobil_id')->join('supir', 'transaksi.supir_id = supir.supir_id')->where('total !=', 0)->orderBy('tgl_masuk', 'DESC')->orderBy('jam_masuk', 'DESC')->paginate(2, 'kembali'),
+            'pager' => $this->transaksi->pager,
+            'currentPage' => $currentPage
         ];
 
         return view('transaksi/masuk', $data);
@@ -83,11 +87,41 @@ class TransaksiController extends BaseController
 
     public function store()
     {
+        $validation = \Config\Services::validation();
+
+        if (!$this->validate([
+            'mobil' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} harus diisi.'
+                ]
+            ],
+            'supir' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} harus diisi.'
+                ]
+            ],
+            'unit' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} harus diisi.'
+                ]
+            ]
+        ])) {
+            $this->session->setFlashdata('mobil', $validation->getError('mobil'));
+            $this->session->setFlashdata('supir', $validation->getError('supir'));
+            $this->session->setFlashdata('unit', $validation->getError('unit'));
+            $this->session->setFlashdata('flash', 'Tambah Transaksi Gagal!');
+            return redirect()->to('/transaksi/create')->withInput();
+        }
+
         date_default_timezone_set('Asia/Jakarta');
 
         $cek = $this->mobil->where('mobil_id', $this->request->getVar('mobil'))->first();
 
         if ($cek['unit'] < $this->request->getVar('unit')) {
+            $this->session->setFlashdata('flash', 'Mobil Tidak Tersedia!');
             return redirect()->to('/transaksi/create');
         }
 
@@ -210,7 +244,7 @@ class TransaksiController extends BaseController
         if ($submit) {
             $bulan = $this->request->getVar('bulan');
             $tahun = $this->request->getVar('tahun');
-            $datanya = $db->query("SELECT * FROM transaksi INNER JOIN mobil ON transaksi.mobil_id = mobil.mobil_id INNER JOIN supir ON transaksi.supir_id = supir.supir_id WHERE MONTH(tgl_masuk) = " . $bulan . " AND YEAR(tgl_masuk) = " . $tahun . " ORDER BY jam_masuk DESC")->getResultArray();
+            $datanya = $db->query("SELECT * FROM transaksi INNER JOIN mobil ON transaksi.mobil_id = mobil.mobil_id INNER JOIN supir ON transaksi.supir_id = supir.supir_id WHERE MONTH(tgl_masuk) = " . $bulan . " AND YEAR(tgl_masuk) = " . $tahun . " ORDER BY tgl_masuk DESC")->getResultArray();
             $dataTotal = $db->query("SELECT SUM(total) AS total_biaya FROM transaksi WHERE MONTH(tgl_masuk) = " . $bulan . " AND YEAR(tgl_masuk) = " . $tahun)->getRowArray();
             if (!$datanya) {
                 echo "<script>
@@ -222,7 +256,7 @@ class TransaksiController extends BaseController
                 $dataPendapatan = $datanya;
             }
         } else {
-            $datanya = $db->query("SELECT * FROM transaksi INNER JOIN mobil ON transaksi.mobil_id = mobil.mobil_id INNER JOIN supir ON transaksi.supir_id = supir.supir_id WHERE MONTH(tgl_masuk) = MONTH(CURRENT_DATE()) AND YEAR(tgl_masuk) = YEAR(CURRENT_DATE()) ORDER BY jam_masuk DESC")->getResultArray();
+            $datanya = $db->query("SELECT * FROM transaksi INNER JOIN mobil ON transaksi.mobil_id = mobil.mobil_id INNER JOIN supir ON transaksi.supir_id = supir.supir_id WHERE MONTH(tgl_masuk) = MONTH(CURRENT_DATE()) AND YEAR(tgl_masuk) = YEAR(CURRENT_DATE()) ORDER BY tgl_masuk DESC")->getResultArray();
             $dataTotal = $db->query("SELECT SUM(total) AS total_biaya FROM transaksi WHERE MONTH(tgl_masuk) = MONTH(CURRENT_DATE()) AND YEAR(tgl_masuk) = YEAR(CURRENT_DATE())")->getRowArray();
             if (!$datanya) {
                 echo "<script>

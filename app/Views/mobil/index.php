@@ -19,12 +19,12 @@
                 <!-- <td>Aksi</td> -->
             </tr>
         </thead>
-        <?php $no = 1; ?>
+        <?php $i = 1 + (2 * ($currentPage - 1)); ?>
         <?php foreach ($data as $d) : ?>
-            <?php $warna = ($no % 2 == 1) ? "putih" : "abu"; ?>
+            <?php $warna = ($i % 2 == 1) ? "putih" : "abu"; ?>
             <tbody>
                 <tr class="<?= $warna; ?>">
-                    <td><?= $no++; ?></td>
+                    <td><?= $i++; ?></td>
                     <td>
                         <img src="/assets/gambar/<?= $d['gambar']; ?>" alt="<?= $d['gambar']; ?>" width="50">
                     </td>
@@ -42,4 +42,5 @@
         <?php endforeach; ?>
     </table>
 </div>
+<?= $pager->links('mobil', 'semua_pagination'); ?>
 <?= $this->endSection(); ?>

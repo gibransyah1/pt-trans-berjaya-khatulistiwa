@@ -21,10 +21,13 @@ class MerekController extends BaseController
         if (!$this->session->get('login')) {
             return redirect()->to('/users/login');
         }
+        $currentPage = $this->request->getVar('page_merek') ? $this->request->getVar('page_merek') : 1;
 
         $data = [
             'judul' => 'List Merek',
-            'data' => $this->merek->findAll()
+            'data' => $this->merek->paginate(2, 'merek'),
+            'pager' => $this->merek->pager,
+            'currentPage' => $currentPage
         ];
 
         return view('merek/index', $data);
@@ -58,6 +61,28 @@ class MerekController extends BaseController
 
     public function store()
     {
+        $validation = \Config\Services::validation();
+
+        if (!$this->validate([
+            'nama' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} harus diisi.'
+                ]
+            ],
+            'negara' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} harus diisi.'
+                ]
+            ]
+        ])) {
+            $this->session->setFlashdata('nama', $validation->getError('nama'));
+            $this->session->setFlashdata('negara', $validation->getError('negara'));
+            $this->session->setFlashdata('flash', 'Tambah Merek Gagal!');
+            return redirect()->to('/merek/create')->withInput();
+        }
+
         $this->merek->save([
             'nama' => $this->request->getVar('nama'),
             'negara' => $this->request->getVar('negara')

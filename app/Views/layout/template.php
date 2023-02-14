@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    <?php if (session()->getFlashdata('flash')) : ?>
+        <script>
+            alert('<?= session()->getFlashdata('flash'); ?>');
+        </script>
+    <?php endif; ?>
     <div class="sidebar">
         <div class="nyambung-backend">
             <!-- <a href="/admin/artikel"><img src="/assets/img/logo.png" alt="logo" width="95"></a> -->

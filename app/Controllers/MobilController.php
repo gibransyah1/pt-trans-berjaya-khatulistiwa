@@ -24,10 +24,13 @@ class MobilController extends BaseController
         if (!$this->session->get('login')) {
             return redirect()->to('/users/login');
         }
+        $currentPage = $this->request->getVar('page_mobil') ? $this->request->getVar('page_mobil') : 1;
 
         $data = [
             'judul' => 'List Mobil',
-            'data' => $this->mobil->join('merek', 'mobil.merek_id = merek.merek_id')->findAll()
+            'data' => $this->mobil->join('merek', 'mobil.merek_id = merek.merek_id')->paginate(2, 'mobil'),
+            'pager' => $this->mobil->pager,
+            'currentPage' => $currentPage
         ];
 
         return view('mobil/index', $data);
@@ -62,6 +65,8 @@ class MobilController extends BaseController
 
     public function store()
     {
+        $validation = \Config\Services::validation();
+
         if (!$this->validate([
             'gambar' => [
                 'rules' => 'uploaded[gambar]',
@@ -108,6 +113,14 @@ class MobilController extends BaseController
                 ]
             ]
         ])) {
+            $this->session->setFlashdata('gambar', $validation->getError('gambar'));
+            $this->session->setFlashdata('namamobil', $validation->getError('namamobil'));
+            $this->session->setFlashdata('jenis', $validation->getError('jenis'));
+            $this->session->setFlashdata('kapasitas', $validation->getError('kapasitas'));
+            $this->session->setFlashdata('harga', $validation->getError('harga'));
+            $this->session->setFlashdata('merek', $validation->getError('merek'));
+            $this->session->setFlashdata('unit', $validation->getError('unit'));
+            $this->session->setFlashdata('flash', 'Tambah Mobil Gagal!');
             return redirect()->to('/mobil/create')->withInput();
         }
 

@@ -19,7 +19,7 @@ class UsersController extends BaseController
     public function hlogin()
     {
         if ($this->session->get('login')) {
-            return redirect()->to('/merek');
+            return redirect()->to('/');
         }
 
         $data = [
@@ -35,12 +35,14 @@ class UsersController extends BaseController
         $password = $this->request->getVar('password');
         $cek = $this->users->where('username', $username)->first();
         if (!$cek) {
+            $this->session->setFlashdata('flash', 'Username Tidak ditemukan!');
             return redirect()->to('/users/login');
         } else {
             if (password_verify($password, $cek['password'])) {
                 $this->session->set(['login' => true]);
                 $this->session->setFlashdata('flash', 'Login Berhasil!');
             } else {
+                $this->session->setFlashdata('flash', 'Password Salah!');
                 return redirect()->to('/users/login');
             }
         }
@@ -49,6 +51,7 @@ class UsersController extends BaseController
 
     public function logout()
     {
+        $this->session->setFlashdata('flash', 'Logout Berhasil!');
         $this->session->remove('login');
         return redirect()->to('/users/login');
     }
@@ -56,7 +59,7 @@ class UsersController extends BaseController
     public function hregister()
     {
         if ($this->session->get('login')) {
-            return redirect()->to('/merek');
+            return redirect()->to('/');
         }
 
         $data = [
@@ -69,6 +72,13 @@ class UsersController extends BaseController
 
     public function register()
     {
+        // $data = [
+        //     'judul' => 'Halaman Register',
+        //     'validation' => \Config\Services::validation()
+        // ];
+
+        $validation = \Config\Services::validation();
+
         if (!$this->validate([
             'username' => [
                 'rules' => 'required|is_unique[users.username]',
@@ -92,6 +102,10 @@ class UsersController extends BaseController
                 ]
             ]
         ])) {
+            $this->session->setFlashdata('username', $validation->getError('username'));
+            $this->session->setFlashdata('password', $validation->getError('password'));
+            $this->session->setFlashdata('password1', $validation->getError('password1'));
+            $this->session->setFlashdata('flash', 'Register Gagal!');
             return redirect()->to('/users/register')->withInput();
         }
         $password = $this->request->getVar('password');
@@ -101,7 +115,7 @@ class UsersController extends BaseController
             'username' => $this->request->getVar('username'),
             'password' => $passHash
         ]);
-
+        $this->session->setFlashdata('flash', 'Register Berhasil!');
         return redirect()->to('/users/login');
     }
 }

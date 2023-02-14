@@ -14,12 +14,12 @@
                 <td>Aksi</td>
             </tr>
         </thead>
-        <?php $no = 1; ?>
+        <?php $i = 1 + (2 * ($currentPage - 1)); ?>
         <?php foreach ($data as $d) : ?>
-            <?php $warna = ($no % 2 == 1) ? "putih" : "abu"; ?>
+            <?php $warna = ($i % 2 == 1) ? "putih" : "abu"; ?>
             <tbody>
                 <tr class="<?= $warna; ?>">
-                    <td><?= $no++; ?></td>
+                    <td><?= $i++; ?></td>
                     <td><?= $d['nama']; ?></td>
                     <td><?= $d['negara']; ?></td>
                     <td>
@@ -30,4 +30,5 @@
         <?php endforeach; ?>
     </table>
 </div>
+<?= $pager->links('merek', 'semua_pagination'); ?>
 <?= $this->endSection(); ?>

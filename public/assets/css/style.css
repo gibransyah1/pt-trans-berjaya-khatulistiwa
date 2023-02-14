@@ -60,13 +60,18 @@ h1 {
 
 input[type='text'],
 input[type='password'],
+input[type='number'],
+textarea[name='alamat'],
 select[name='jenis'],
 select[name='tahun'],
 select[name='bulan'],
 select[name='barang'],
 select[name='kategori'],
 select[name='id_barang'],
-select[name='id_suplier']{
+select[name='id_suplier'],
+select[name='merek'],
+select[name='mobil'],
+select[name='supir']{
     width: 100%;
     font-size: 12pt;
     padding: 7px;
@@ -345,4 +350,25 @@ tbody {
     border-top: 4px solid royalblue;
     padding: 50px;
     box-sizing: border-box;
+}
+
+.pagination {
+	float: right;
+}
+.pagination a{
+	text-decoration: none;
+	color: white;
+	border-radius: 4px;
+	padding: 10px;
+	background-color: steelblue;
+	box-sizing: border-box;
+	font-size: 10pt;
+}
+
+.halaman-bagus {
+	display: inline-block;
+}
+
+.kanan-test {
+    float: right;
 }

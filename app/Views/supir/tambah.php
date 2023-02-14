@@ -6,22 +6,31 @@
         <li>
             <label for="supir">Nama Supir: </label>
             <input type="text" name="supir" id="supir">
+            <?php if (session()->getFlashdata('supir')) : ?>
+                <p style="color: red; font-style: italic;"><?= session()->getFlashdata('supir') ?></p>
+            <?php endif; ?>
         </li>
         <li>
             <label for="alamat">Alamat: </label>
             <br>
             <textarea name="alamat" id="alamat" cols="30" rows="10"></textarea>
+            <?php if (session()->getFlashdata('alamat')) : ?>
+                <p style="color: red; font-style: italic;"><?= session()->getFlashdata('alamat') ?></p>
+            <?php endif; ?>
         </li>
         <li>
             <label for="telp">No Telp: </label>
             <input type="number" name="telp" id="telp">
+            <?php if (session()->getFlashdata('telp')) : ?>
+                <p style="color: red; font-style: italic;"><?= session()->getFlashdata('telp') ?></p>
+            <?php endif; ?>
         </li>
         <li>
             <button type="submit" class="btn-keluar">Simpan</button>
         </li>
         <li>
             <br>
-            <a href="/supir"><button type="button" class="btn-keluar">Simpan</button></a>
+            <a href="/supir"><button type="button" class="btn-keluar">Kembali</button></a>
         </li>
     </ul>
 </form>

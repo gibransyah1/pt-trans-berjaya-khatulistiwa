@@ -19,12 +19,12 @@
                 <td>Total Bayar</td>
             </tr>
         </thead>
-        <?php $no = 1; ?>
+        <?php $i = 1 + (2 * ($currentPage - 1)); ?>
         <?php foreach ($data as $d) : ?>
-            <?php $warna = ($no % 2 == 1) ? "putih" : "abu"; ?>
+            <?php $warna = ($i % 2 == 1) ? "putih" : "abu"; ?>
             <tbody>
                 <tr class="<?= $warna; ?>">
-                    <td><?= $no++; ?></td>
+                    <td><?= $i++; ?></td>
                     <td><?= $d['nama_mobil']; ?></td>
                     <td><?= $d['nama_supir']; ?></td>
                     <td><?= $d['tgl_keluar']; ?></td>
@@ -38,4 +38,5 @@
         <?php endforeach; ?>
     </table>
 </div>
+<?= $pager->links('kembali', 'semua_pagination'); ?>
 <?= $this->endSection(); ?>

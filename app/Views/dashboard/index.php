@@ -1,10 +1,6 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
-<?php if (session()->getFlashdata('flash')) : ?>
-    <script>
-        alert('<?= session()->getFlashdata('flash'); ?>');
-    </script>
-<?php endif; ?>
+
 <h1 class="judul-halaman">Dashboard</h1>
 <div style="width: 800px;margin: 0px auto;">
     <canvas id="myChart"></canvas>
