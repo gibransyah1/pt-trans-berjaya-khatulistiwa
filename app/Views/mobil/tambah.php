@@ -50,13 +50,6 @@
                 <p style="color: red; font-style: italic;"><?= session()->getFlashdata('merek') ?></p>
             <?php endif; ?>
         </li>
-        <li>
-            <label for="unit">Unit: </label>
-            <input type="number" name="unit" id="unit">
-            <?php if (session()->getFlashdata('unit')) : ?>
-                <p style="color: red; font-style: italic;"><?= session()->getFlashdata('unit') ?></p>
-            <?php endif; ?>
-        </li>
     </ul>
     <button type="submit" class="btn-keluar">Simpan</button>
 

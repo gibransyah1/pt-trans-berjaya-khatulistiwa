@@ -28,7 +28,7 @@ class MobilController extends BaseController
 
         $data = [
             'judul' => 'List Mobil',
-            'data' => $this->mobil->join('merek', 'mobil.merek_id = merek.merek_id')->paginate(2, 'mobil'),
+            'data' => $this->mobil->join('merek', 'mobil.merek_id = merek.merek_id')->paginate(5, 'mobil'),
             'pager' => $this->mobil->pager,
             'currentPage' => $currentPage
         ];
@@ -104,13 +104,6 @@ class MobilController extends BaseController
                 'errors' => [
                     'required' => '{field} harus diisi.'
                 ]
-            ],
-            'unit' => [
-                'rules' => 'required|numeric',
-                'errors' => [
-                    'required' => '{field} harus diisi.',
-                    'numeric' => '{field} harus angka.'
-                ]
             ]
         ])) {
             $this->session->setFlashdata('gambar', $validation->getError('gambar'));
@@ -119,7 +112,6 @@ class MobilController extends BaseController
             $this->session->setFlashdata('kapasitas', $validation->getError('kapasitas'));
             $this->session->setFlashdata('harga', $validation->getError('harga'));
             $this->session->setFlashdata('merek', $validation->getError('merek'));
-            $this->session->setFlashdata('unit', $validation->getError('unit'));
             $this->session->setFlashdata('flash', 'Tambah Mobil Gagal!');
             return redirect()->to('/mobil/create')->withInput();
         }
@@ -134,7 +126,7 @@ class MobilController extends BaseController
             'kapasitas_mesin' => $this->request->getVar('kapasitas'),
             'harga_sewa' => $this->request->getVar('harga'),
             'merek_id' => $this->request->getVar('merek'),
-            'unit' => $this->request->getVar('unit')
+            'status' => 'tersedia'
         ]);
 
         $file->move('assets/gambar/', $namaFile);

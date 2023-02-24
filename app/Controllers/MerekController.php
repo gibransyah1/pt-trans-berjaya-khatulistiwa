@@ -25,7 +25,7 @@ class MerekController extends BaseController
 
         $data = [
             'judul' => 'List Merek',
-            'data' => $this->merek->paginate(2, 'merek'),
+            'data' => $this->merek->paginate(5, 'merek'),
             'pager' => $this->merek->pager,
             'currentPage' => $currentPage
         ];

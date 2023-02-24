@@ -25,7 +25,7 @@ class SupirController extends BaseController
 
         $data = [
             'judul' => 'List Supir',
-            'data' => $this->supir->paginate(2, 'supir'),
+            'data' => $this->supir->paginate(5, 'supir'),
             'pager' => $this->supir->pager,
             'currentPage' => $currentPage
         ];

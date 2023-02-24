@@ -1,11 +1,47 @@
-<?= $this->extend('layout/template'); ?>
-<?= $this->section('content'); ?>
-<h1 class="judul-halaman">List Transaksi</h1>
+<!DOCTYPE html>
+<html>
 
-<!-- <a href="/transaksi/create"><button class="btn-keluar" type="button">Tambah Mobil Keluar</button></a> -->
+<head>
+    <title>Gudang Gibran</title>
+</head>
 
-<div class="wadah-tabel">
-    <table class="desain">
+<body>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #3c3c3c;
+            padding: 3px 8px;
+
+        }
+
+        a {
+            background: blue;
+            color: #fff;
+            padding: 8px 10px;
+            text-decoration: none;
+            border-radius: 2px;
+        }
+    </style>
+
+    <?php
+    header("Content-type: application/vnd-ms-excel");
+    header("Content-Disposition: attachment; filename=Transaksi Rental.xls");
+    ?>
+
+    <center>
+        <h1>List Transaksi Rental <br /> www.rentalmobilgibran.com</h1>
+    </center>
+
+    <table width="100%">
         <thead>
             <tr>
                 <td>No</td>
@@ -19,16 +55,12 @@
                 <td>Sisa Bayar</td>
                 <td>Total</td>
                 <td>Status</td>
-                <td>Aksi</td>
             </tr>
         </thead>
-
-        <?php $i = 1 + (2 * ($currentPage - 1)); ?>
-        <?php foreach ($data as $d) : ?>
-            <?php $sisa = $d['total'] - $d['nominal']; ?>
-            <?php $warna = ($i % 2 == 1) ? "putih" : "abu"; ?>
+        <?php $i = 1; ?>
+        <?php foreach ($datanya as $d) : ?>
             <tbody>
-                <tr class="<?= $warna; ?>">
+                <tr>
                     <td><?= $i++; ?></td>
                     <td><?= $d['nama_mobil']; ?></td>
                     <td><?= $d['nama_supir']; ?></td>
@@ -51,14 +83,10 @@
                     <?php endif; ?>
                     <td><?= 'Rp. ' . number_format($d['total'], 2, ',', '.'); ?></td>
                     <td><?= $d['status_pinjam']; ?></td>
-                    <td>
-                        <a href="/transaksi/detail/<?= $d['transaksi_id']; ?>">detail</a>
-                        <!-- <a href="/transaksi/detail/<?= $d['transaksi_id']; ?>">detail</a> | <a href="/transaksi/edit/<?= $d['transaksi_id']; ?>">selesai</a> | <a href="/transaksi/delete/<?= $d['transaksi_id']; ?>" onclick="return confirm('yakin?');">hapus</a> -->
-                    </td>
                 </tr>
             </tbody>
         <?php endforeach; ?>
     </table>
-</div>
-<?= $pager->links('pinjam', 'semua_pagination'); ?>
-<?= $this->endSection(); ?>
+</body>
+
+</html>

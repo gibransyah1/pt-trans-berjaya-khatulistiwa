@@ -1,12 +1,47 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 
-<h1 class="judul-halaman">Dashboard</h1>
+<!-- <h1 class="judul-halaman">Dashboard</h1>
 <div style="width: 800px;margin: 0px auto;">
     <canvas id="myChart"></canvas>
+</div> -->
+
+<h1 class="judul-halaman">Dashboard</h1>
+<div class="container-dashboard">
+    <a href="/" class="kotak-masuk">
+        <div class="kotak biru">
+            <i class="fa fa-newspaper-o" style="color: white; font-size:60pt;"></i>
+            <p style="color: white; font-size:15pt;">Dashboard</p>
+        </div>
+    </a>
+    <a href="/merek" class="kotak-keluar">
+        <div class="kotak biru">
+            <i class="fa fa-tags" style="color: white; font-size:60pt"></i>
+            <p style="color: white; font-size:15pt;">Merek</p>
+        </div>
+    </a>
+    <a href="/mobil" class="kotak-harian">
+        <div class="kotak biru">
+            <i class="fa fa-globe" style="color: white; font-size:60pt"></i>
+            <p style="color: white; font-size:15pt;">Mobil</p>
+        </div>
+    </a>
+    <a href="/transaksi" class="kotak-bulanan">
+        <div class="kotak biru">
+            <i class="fa fa-comments" style="color: white; font-size:60pt"></i>
+            <p style="color: white; font-size:15pt;">Transaksi</p>
+        </div>
+    </a>
+    <a href="/transaksi/bulanan">
+        <div class="kotak-kanan biru kotak-dashboard">
+            <i class="fa fa-user" style="color: white; font-size:60pt"></i>
+            <p style="color: white; font-size:15pt;">Laporan Transaksi Rental</p>
+        </div>
+    </a>
+    <div class="clear"></div>
 </div>
 
-<script>
+<!-- <script>
     var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -16,16 +51,16 @@
                 label: '',
                 data: [
                     <?php
-                    echo $januari;
+                    //echo $januari;
                     ?>,
                     <?php
-                    echo $februari;
+                    //echo $februari;
                     ?>,
                     <?php
-                    echo $maret;
+                    //echo $maret;
                     ?>,
                     <?php
-                    echo $april;
+                    //echo $april;
                     ?>
                 ],
                 backgroundColor: [
@@ -53,5 +88,5 @@
             }
         }
     });
-</script>
+</script> -->
 <?= $this->endSection(); ?>

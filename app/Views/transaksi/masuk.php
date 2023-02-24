@@ -15,7 +15,8 @@
                 <td>Tanggal Masuk</td>
                 <td>Jam Keluar</td>
                 <td>Jam Masuk</td>
-                <td>Unit Masuk</td>
+                <td>Nominal</td>
+                <td>Pembayaran</td>
                 <td>Total Bayar</td>
             </tr>
         </thead>
@@ -31,7 +32,8 @@
                     <td><?= $d['tgl_masuk']; ?></td>
                     <td><?= $d['jam_keluar']; ?></td>
                     <td><?= $d['jam_masuk']; ?></td>
-                    <td><?= $d['unit_total']; ?></td>
+                    <td><?= $d['nominal']; ?></td>
+                    <td><?= $d['islunas']; ?></td>
                     <td>Rp. <?= number_format($d['total'], 2, ',', '.'); ?></td>
                 </tr>
             </tbody>

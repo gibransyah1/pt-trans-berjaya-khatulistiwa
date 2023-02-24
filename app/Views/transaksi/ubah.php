@@ -1,43 +1,45 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
-<h1>Form Tambah Transaksi</h1>
-<form action="/transaksi/edited" method="post">
-    <input type="hidden" name="id" value="<?= $data['transaksi_id']; ?>">
-    <ul>
+<h1 class="judul-halaman">Sewa Mobil</h1>
+<form action="/transaksi/store" method="post">
+    <input type="hidden" name="id" value="<?= $data['mobil_id']; ?>">
+    <ul class="merubah-ul">
         <li>
             <label for="mobil">Nama Mobil: </label>
-            <select name="mobil" id="mobil">
-                <?php foreach ($mobil as $m) : ?>
-                    <?php if ($m['nama_mobil'] == $data['nama_mobil']) : ?>
-                        <option value="<?= $m['mobil_id']; ?>" selected><?= $m['nama_mobil']; ?></option>
-                    <?php else : ?>
-                        <option value="<?= $m['mobil_id']; ?>"><?= $m['nama_mobil']; ?></option>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </select>
+            <input type="text" name="mobil" id="mobil" value="<?= $data['nama_mobil']; ?>" readonly="readonly">
         </li>
         <li>
             <label for="supir">Nama Supir: </label>
             <select name="supir" id="supir">
                 <?php foreach ($supir as $s) : ?>
-                    <?php if ($s['nama_supir'] == $data['nama_supir']) : ?>
-                        <option value="<?= $s['supir_id']; ?>" selected><?= $s['nama_supir']; ?></option>
-                    <?php else : ?>
-                        <option value="<?= $s['supir_id']; ?>"><?= $s['nama_supir']; ?></option>
-                    <?php endif; ?>
+                    <option value="<?= $s['supir_id']; ?>"><?= $s['nama_supir']; ?></option>
                 <?php endforeach; ?>
             </select>
         </li>
         <li>
-            <label for="unit">Berapa Unit: </label>
-            <input type="number" name="unit" id="unit" value="<?= $data['unit_total']; ?>">
+            <label for="penyewa">Nama Penyewa: </label>
+            <input type="text" name="penyewa" id="penyewa">
         </li>
         <li>
-            <button type="submit">Ubah</button>
+            <label for="kembali">Tanggal Kembali: </label>
+            <input type="date" name="kembali" id="kembali">
         </li>
         <li>
-            <a href="/transaksi/keluar">Kembali</a>
+            <label for="pembayaran">Pilih Pembayaran: </label>
+            <select name="pembayaran" id="pembayaran">
+                <option value="1">Lunas</option>
+                <option value="0">Dp</option>
+            </select>
         </li>
+        <li>
+            <label for="nominal">Nominal: </label>
+            <input type="number" name="nominal" id="nominal" placeholder="Abaikan Jika Pembayaran Lunas" value="0">
+        </li>
+
+        <button type="submit" class="btn-keluar">Bayar</button>
+
+        <a href="/mobil"><button type="button" class="btn-keluar kanan-test">Kembali</button></a>
+        <input type="submit" name="cetak" value="cetak" class="btn-keluar">
     </ul>
 </form>
 <?= $this->endSection(); ?>

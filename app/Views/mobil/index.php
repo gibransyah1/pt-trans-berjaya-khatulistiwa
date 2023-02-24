@@ -15,8 +15,8 @@
                 <td>Kapasitas Mesin</td>
                 <td>Harga Sewa Per Hari</td>
                 <td>Merek</td>
-                <td>Unit</td>
-                <!-- <td>Aksi</td> -->
+                <td>Status</td>
+                <td>Aksi</td>
             </tr>
         </thead>
         <?php $i = 1 + (2 * ($currentPage - 1)); ?>
@@ -33,10 +33,15 @@
                     <td><?= $d['kapasitas_mesin']; ?> CC</td>
                     <td>Rp. <?= number_format($d['harga_sewa'], 2, ',', '.'); ?></td>
                     <td><?= $d['nama']; ?></td>
-                    <td><?= $d['unit']; ?></td>
-                    <!-- <td>
-                <a href="/mobil/detail/<?= $d['mobil_id']; ?>">detail</a> | <a href="/mobil/edit/<?= $d['mobil_id']; ?>">ubah</a> | <a href="/mobil/delete/<?= $d['mobil_id']; ?>" onclick="return confirm('yakin?');">hapus</a>
-            </td> -->
+                    <td><?= $d['status']; ?></td>
+                    <td>
+                        <?php if ($d['status'] == 'tersedia') : ?>
+                            <a href="/transaksi/edit/<?= $d['mobil_id']; ?>">Sewa</a>
+                        <?php else : ?>
+                            <p>-</p>
+                        <?php endif; ?>
+                        <!-- <a href="/mobil/detail/<?= $d['mobil_id']; ?>">detail</a> | <a href="/mobil/edit/<?= $d['mobil_id']; ?>">Sewa</a> | <a href="/mobil/delete/<?= $d['mobil_id']; ?>" onclick="return confirm('yakin?');">hapus</a> -->
+                    </td>
                 </tr>
             </tbody>
         <?php endforeach; ?>

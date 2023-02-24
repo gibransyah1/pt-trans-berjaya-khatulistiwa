@@ -54,18 +54,29 @@ $routes->get('/supir/edit/(:any)', 'SupirController::edit/$1');
 $routes->post('/supir/edited', 'SupirController::edited');
 $routes->get('/supir/delete/(:any)', 'SupirController::delete/$1');
 
-$routes->get('/transaksi/masuk', 'TransaksiController::masuk');
-$routes->get('/transaksi/keluar', 'TransaksiController::index');
+// $routes->get('/transaksi/masuk', 'TransaksiController::masuk');
+$routes->get('/transaksi', 'TransaksiController::index');
 $routes->get('/transaksi/detail/(:any)', 'TransaksiController::show/$1');
 $routes->get('/transaksi/create', 'TransaksiController::create');
 $routes->post('/transaksi/store', 'TransaksiController::store');
 $routes->get('/transaksi/edit/(:any)', 'TransaksiController::edit/$1');
-$routes->post('/transaksi/edited', 'TransaksiController::edited');
+// $routes->post('/transaksi/edited', 'TransaksiController::edited');
+
+$routes->get('/transaksi/edited/(:any)', 'TransaksiController::edited/$1');
+$routes->get('/transaksi/lunas/(:any)', 'TransaksiController::lunas/$1');
+$routes->get('/transaksi/cetaklunas/(:any)', 'TransaksiController::cetaklunas/$1');
+$routes->get('/transaksi/batal/(:any)', 'TransaksiController::batal/$1');
+
 $routes->get('/transaksi/delete/(:any)', 'TransaksiController::delete/$1');
 $routes->get('/transaksi/bulanan', 'TransaksiController::bulanan');
 $routes->post('/transaksi/bulanan', 'TransaksiController::bulanan');
 $routes->get('/transaksi/harian', 'TransaksiController::harian');
 $routes->get('/transaksi/harian/cetak', 'TransaksiController::cetakharian');
+$routes->get('/transaksi/excel', 'TransaksiController::excel');
+
+$routes->get('/transaksi/ambil/(:any)', 'TransaksiController::ambil/$1');
+// $routes->post('/transaksi/ambil', 'TransaksiController::ambil');
+
 
 $routes->get('/users/register', 'UsersController::hregister');
 $routes->post('/users/registered', 'UsersController::register');

@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 <h1 class="judul-halaman">Form Tambah Transaksi</h1>
-<form action="/transaksi/store" method="post">
+<form action="/transaksi/wadaw" method="post">
     <ul class="merubah-ul">
         <li>
             <label for="mobil">Nama Mobil: </label>

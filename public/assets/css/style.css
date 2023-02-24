@@ -61,6 +61,9 @@ h1 {
 input[type='text'],
 input[type='password'],
 input[type='number'],
+input[name='bulan'],
+input[name='bulan1'],
+input[name='kembali'],
 textarea[name='alamat'],
 select[name='jenis'],
 select[name='tahun'],
@@ -71,7 +74,10 @@ select[name='id_barang'],
 select[name='id_suplier'],
 select[name='merek'],
 select[name='mobil'],
-select[name='supir']{
+select[name='supir'],
+select[name='pembayaran'],
+select[name='idbayar']
+{
     width: 100%;
     font-size: 12pt;
     padding: 7px;
@@ -140,7 +146,8 @@ input[name='noplat']{
 /* sidebar */
 .sidebar {
     width: 15%;
-    height: 100vh;
+    /* height: 100vh; */
+    height: 174vh;
     box-sizing: border-box;
     color: white;
     background-color: #1d3163;
@@ -202,7 +209,8 @@ input[name='noplat']{
 /* main utama */
 .main-utama {
     width: 85%;
-    height: 76vh;
+    /* height: 76vh; */
+    height: 150vh;
     padding: 20px;
     box-sizing: border-box;
     /* background-color: aqua; */

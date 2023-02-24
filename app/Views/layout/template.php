@@ -35,10 +35,10 @@
             <li><a href="/merek">Merek</a></li>
             <li><a href="/mobil">Mobil</a></li>
             <li><a href="/supir">Supir</a></li>
-            <li><a href="/transaksi/keluar">Mobil Sedang dipinjam</a></li>
-            <li><a href="/transaksi/masuk">Mobil Sudah dikembalikan</a></li>
-            <li><a href="/transaksi/bulanan">Laporan Bulanan</a></li>
-            <li><a href="/transaksi/harian">Laporan Harian</a></li>
+            <li><a href="/transaksi">Transaksi</a></li>
+            <!-- <li><a href="/transaksi/masuk">Mobil Sudah dikembalikan</a></li> -->
+            <li><a href="/transaksi/bulanan">Laporan Transaksi Rental</a></li>
+            <!-- <li><a href="/transaksi/harian">Laporan Harian</a></li> -->
         </ul>
     </div>
     <div class="judul-backend">

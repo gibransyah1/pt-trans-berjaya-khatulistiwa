@@ -14,7 +14,7 @@ class TransaksiModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['mobil_id', 'supir_id', 'tgl_keluar', 'tgl_masuk', 'jam_keluar', 'jam_masuk', 'unit_total', 'total'];
+    protected $allowedFields    = ['mobil_id', 'supir_id', 'penyewa', 'tgl_keluar', 'tgl_masuk', 'islunas', 'nominal', 'total', 'status_pinjam'];
 
     // Dates
     protected $useTimestamps = false;

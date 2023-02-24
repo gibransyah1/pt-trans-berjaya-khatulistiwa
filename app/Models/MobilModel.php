@@ -14,7 +14,7 @@ class MobilModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['gambar', 'nama_mobil', 'jenis', 'kapasitas_mesin', 'harga_sewa', 'merek_id', 'unit'];
+    protected $allowedFields    = ['gambar', 'nama_mobil', 'jenis', 'kapasitas_mesin', 'harga_sewa', 'merek_id', 'status'];
 
     // Dates
     protected $useTimestamps = false;
